@@ -1,11 +1,11 @@
 const request = require('request');
 
 
-const nextISSTimesForMyLocation = function (callback) {
+const nextISSTimesForMyLocation = function(callback) {
 
   fetchMyIP((error, ip) => {
     if (error) {
-      return callback(error, null)
+      return callback(error, null);
     }
 
     fetchCoordsByIP(ip, (error, loc) => {
@@ -15,10 +15,10 @@ const nextISSTimesForMyLocation = function (callback) {
 
       fetchISSFlyOverTimes(loc, (error, nextPasses) => {
         if (error) {
-          return callback(error, null)
+          return callback(error, null);
         }
 
-        callback(null, nextPasses)
+        callback(null, nextPasses);
       });
     });
   });
@@ -59,8 +59,8 @@ const fetchCoordsByIP = function(ip, callback) {
   });
 };
 
-const fetchISSFlyOverTimes = function (coords, callback) {
-  request (`https://iss-pass.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`, (error, response, body) => {
+const fetchISSFlyOverTimes = function(coords, callback) {
+  request(`https://iss-pass.herokuapp.com/json/?lat=${coords.latitude}&lon=${coords.longitude}`, (error, response, body) => {
     if (error) {
       callback(error, null);
       return;
@@ -72,9 +72,9 @@ const fetchISSFlyOverTimes = function (coords, callback) {
 
     const passes = JSON.parse(body).response;
     callback(null, passes);
-  })
+  });
   
-}
+};
 
 
 
